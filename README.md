@@ -77,6 +77,20 @@ In the dataset, we encounter two columns - "Description" and "CustomerID" - that
 
 ## RFM Analysis
 RFM is a commonly used method for segmentation in retail. 'Recency' is how recently a customer has made a purchase, 'Frequency' is how often they purchase, and 'Monetary Value' is how much they spend. We have derived corresponding columns and employed the K-means algorithm to create these customer segments. In my analysis, the silhouette score is highest at 2, suggesting that clusters optimally separate the data. On the other hand, the elbow method suggests that adding clusters up to 8 continues to significantly improve the within-cluster sum of squares(inertia). Therefore, we consider two clusters as a high-level separation and the 8-cluster solution provides more granular, specific segmentation and use 8 clusters as the label for future classification.
+<img src = "graph/cluster_8.png">
+Looking at the graphs, it's evident that each cluster exhibits unique characteristics:
+
+Cluster 1 is marked by high recency values, suggesting that customers in this cluster have not made purchases recently.
+
+Cluster 2 stands out due to its high monetary values, implying these customers tend to spend a considerable amount on their purchases, and maintain a moderate frequency of orders.
+
+Cluster 3 exhibits moderate recency values, which suggests these customers have made purchases in the not-too-distant past. However, this cluster scores significantly low on all other metrics, indicating these customers may not be as active or spend as much compared to those in other clusters.
+
+Cluster 4 is characterized by high frequency of both items and orders, and low recency, indicating these customers have made purchases very recently and do so quite frequently. They also provide a moderate amount of monetary value to the total revenue.
+
+Cluster 5 shows low recency (i.e., recent purchases) but moderate values for the other metrics, suggesting these customers have made purchases relatively recently, usually have a higher order frequency, and spend more when they do make a purchase.
+
+The remaining three clusters generally show low values for all metrics, with each cluster having just one feature that isn't as low. These clusters may represent less active or less engaged customers.
 
 ## Model Building
 #### Customer Classification
@@ -91,9 +105,21 @@ The results from various machine learning models for customer classification ind
 
 - Stacking: The stacked model achieved a balanced accuracy of 85.93%, which is lower compared to the K-Nearest Neighbor, Decision Tree, Random Forest, XGBoost, and Average Weighting models. This suggests that while stacking multiple models can improve performance, it might not always provide the best solution when dealing with imbalanced data. Despite its lower balanced accuracy, the model's recall was 98.25%, precision 98.16%, and the F1 score was 98.20%, reflecting overall good performance.
 
-#### Gross Sales Time Series
-- ARIMA
-- SARIMA
+In conclusion, while all models showed high predictive performance, the K-Nearest Neighbor, Decision Tree, Random Forest, XGBoost, and Average Weighting models delivered the highest balanced accuracy. These models, thus, appear to be particularly well-suited for handling class imbalances and represent strong choices for this task. Meanwhile, the stacking model's balanced accuracy, though good, was not superior to these models.
+
+#### Weekly Gross Sales Time Series
+ARIMA
+<img src="graph/arima_predict.png">
+Given that the root mean square error is 120347, coupled with the graphical representation suggesting poor forecast quality, it's clear that the current model needs refinement. Consequently, it would be prudent to explore the Seasonal ARIMA model as a more appropriate alternative for forecasting.
+
+SARIMA
+<img src="graph/sarima_predict.png">
+The root mean square error for the seasonal ARIMA model stands at 83676, exhibiting an improvement over the previous ARIMA model. While the model efficiently captures the broad trends in gross sales for the initial weeks, its precision in forecasting over an extended period might not be as high.
+
 
 ## Conclusions and Recommendations
-In conclusion, while all models showed high predictive performance, the K-Nearest Neighbor, Decision Tree, Random Forest, XGBoost, and Average Weighting models delivered the highest balanced accuracy. These models, thus, appear to be particularly well-suited for handling class imbalances and represent strong choices for this task. Meanwhile, the stacking model's balanced accuracy, though good, was not superior to these models.
+- For items exhibiting high cancellation rates, it's recommended to conduct an in-depth examination to identify if product defects could be the cause. If defects are confirmed, it would be prudent to liaise with the manufacturer to resolve the issue or consider discontinuing the sale of the item.
+- For customers who haven't made a purchase in a while (high recency score), consider outreach efforts or incentives to encourage them to re-engage.
+- Utilize the sales forecasting model to aid in operational planning. Regularly update the model with the most recent data to keep the predictions as accurate as possible.
+- For segments that have only a few but high-value customers, strategies could be designed to increase the loyalty of these customers and potentially acquire more of them.
+- Continually monitor and refine the segmentation model as new data becomes available and as business needs evolve. This ensures that the strategy remains effective as the customer base changes over time.
