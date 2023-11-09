@@ -12,7 +12,7 @@
 
 
 ## Problem Statement
-In the fast-paced world of e-commerce, understanding customer behavior is the key to success. Our project aims to transform the raw data into actionable insights by segmenting customers based on their purchasing behavior. Our data playground is the [Online Retail Dataset](https://archive-beta.ics.uci.edu/dataset/352/online+retail), a rich dataset detailing the transactions occurring for a UK-based and registered, non-store online retail.
+In the fast-paced world of e-commerce, understanding customer behaviors is the key to success. Our project aims to transform the raw data into actionable insights by segmenting customers based on their purchasing behavior. Our data playground is the [Online Retail Dataset](https://archive-beta.ics.uci.edu/dataset/352/online+retail), a rich dataset detailing the transactions occurring for a UK-based and registered, non-store online retail.
 
 Our strategy is to use clustering algorithms to group registered customers exhibiting similar behaviors in terms of Recency, Frequency, and Monetary values. We will assess the effectiveness of this approach using metrics such as the silhouette score and cluster inertia. Through this segmentation, we can devise and implement strategies that are custom-tailored to the unique characteristics of each customer group.
 
